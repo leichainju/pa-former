@@ -1,0 +1,16 @@
+numpy
+alive_progress
+jsonlines
+yacs
+tensorboard
+termcolor
+prettytable
+graphviz
+networkx
+treelib
+tree_sitter
+nltk
+psutil
+setuptools==59.5.0
+scipy
+matplotlib
