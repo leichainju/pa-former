@@ -1,0 +1,77 @@
+base: [
+  '../_base_/default_runtime.yaml',
+  '../_base_/runtimes/adamw_bs64.yaml',
+  '../_base_/schedules/schedule_30e.yaml',
+  '../_base_/models/transformer.yaml'
+]
+model:
+  name: PAformer
+  copy_attn: True
+  max_tgt_len: 24
+  num_kernels: 16
+  num_stm_cls: 23
+  aux_criterion: none
+  meta_info: stok_seq_rep
+  forward_params:
+    tgt_seq_rep: tgt_seq_rep
+    stok_seq_rep: stok_seq_rep
+    tok_seq_rep: tok_seq_rep
+    stm_seq_rep: stm_seq_rep
+    stok2tok_mat: stok2tok_mat
+    stok2stm_mat: stok2stm_mat
+    src_map: src_map
+  predict_params:
+    stok_seq_rep: stok_seq_rep
+    tok_seq_rep: tok_seq_rep
+    stm_seq_rep: stm_seq_rep
+    stok2tok_mat: stok2tok_mat
+    stok2stm_mat: stok2stm_mat
+  beam_params:
+    stok_seq:
+      data: stok_seq_rep
+      mask: stok_pad_mask
+train:
+  warmup_steps: 1500
+data:
+  name: Hi3Dataset
+  copy_attn: True
+  max_stok_len: 196
+  max_tok_len: 160
+  max_stm_len: 16
+  num_stm_cls: 23
+  lang: java
+  vocabs:
+    stok_vocab:
+      size: 50000
+      fields: ['stok_seq']
+      no_special_token: True
+    tok_vocab:
+      size: 10000
+      fields: ['tok_seq']
+      no_special_token: True
+    stm_vocab:
+      size: 100
+      fields: ['stm_seq']
+      no_special_token: True
+    tgt_vocab:
+      size: 30000
+      fields: ['tgt_seq']
+      no_special_token: False
+  loading:
+    name: LoadExamplesFromJsonl
+    train_file: ./data/train.jsonl
+    test_file: ./data/test.jsonl
+  pipeline:
+    name: Compose
+    pipelines:
+      PreprocessBase:
+        note: process `src_text`, `tgt_text` and `tgt_seq`
+        src_text_key: token_seq
+        tgt_text_key: summary_seq
+      PreprocessSubToken:
+        note: process `tok_seq`
+        stok_seq_key: sub_token_seq
+      ProcessMultiHierarchy:
+        tok_key: token_grammar_types
+out_dir: out/pa_former/
+tag: pa_java_30e

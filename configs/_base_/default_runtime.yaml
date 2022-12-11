@@ -1,0 +1,66 @@
+data:
+  lang: java
+  max_src_subtok_len: 196
+  max_src_tok_len: 160
+  max_src_stm_len: 16
+  max_tgt_len: 24
+  meta_info: memory_bank
+model:
+  name: Transformer
+  copy_attn: False
+  max_seq_len: 512
+  num_encoder_layers: 6
+  num_decoder_layers: 6
+  dim: 512
+  d_ff: 2048
+  num_heads: 8
+  dropout: 0.1
+  attn_dropout: 0.1
+  ffn_activation: relu
+  pre_ln: False
+  meta_info: memory_bank
+  embedding:
+    src_pos_type: rel
+    tgt_pos_type: learn
+    rel_range: 32
+    use_negative: True
+    share_embedding: True
+    dropout: 0.1
+    src_vocab_size: 50000
+    tgt_vocab_size: 30000
+train:
+  batch_size: 32
+  start_epoch: 0
+  epochs: 15
+  warmup_steps: 0
+  early_stop: 5
+  num_workers: 8
+  label_smooth_eps: 0.1
+  shuffle: True
+optim:
+  name: Adam
+  lr: 1e-4
+  clip_grad: 8.0
+  weight_decay: 0.0
+criterion:
+  eps: 0.1
+  idx_ignore: 0
+  reduction: mean
+  force_copy: False
+test:
+  batch_size: 64
+  num_workers: 12
+  shuffle: True
+  decoding_strategy: greedy
+  beam_size: 3
+  main_metric: bleu
+  ckpt_file:
+logging:
+  tb_dir: runs
+  eval_file:
+  log_file:
+  freq_print: 100
+  freq_save: 3
+mode: train
+cuda: True
+random_seed: 233

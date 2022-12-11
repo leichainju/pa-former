@@ -1,0 +1,8 @@
+lr_scheduler:
+  name: 'multi_step'
+  steps: [16, 24, 32]
+  gamma: 0.1
+train:
+  start_epoch: 0
+  epochs: 36
+  early_stop: 8

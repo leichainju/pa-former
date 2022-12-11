@@ -1,0 +1,23 @@
+model:
+  name: Transformer
+  copy_attn: False
+  max_seq_len: 512
+  num_encoder_layers: 6
+  num_decoder_layers: 6
+  dim: 512
+  d_ff: 2048
+  num_heads: 8
+  dropout: 0.1
+  attn_dropout: 0.1
+  ffn_activation: relu
+  embedding:
+    src_pos_type: rel
+    tgt_pos_type: learn
+    rel_range: 32
+    use_negative: True
+    share_embedding: True
+    dropout: 0.1
+    src_vocab_size: 50000
+    tgt_vocab_size: 30000
+train:
+  warmup_steps: 0
