@@ -6,8 +6,8 @@ Official implementation of our paper, Pyramid Attention For Source Code Summariz
 
 ### Dataset
 
-1. download `data.zip` from https://www.dropbox.com/s/k84cz704ld44yqi/data.zip?dl=0
-2. unzip `data.zip`, and we have `./data/*.jsonl`.
+1. zipped [EMSE-Deepcom](https://drive.google.com/file/d/1pKf_ji5OstEPzC_RcgTQq4yyvjnvmxqN/view?usp=share_link) and [FunCom](https://drive.google.com/file/d/1-WSPQNAnoW4QFd0Hi4tc6ellrVTZx_Bo/view?usp=share_link) on Google Drive.
+2. unzip `*.zip`, and we have `./data/*_train.jsonl` and `./data/*_test.jsonl`.
 
 ### Installs
 
