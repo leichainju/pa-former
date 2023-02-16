@@ -21,3 +21,7 @@ python main.py --cfg configs/pa_former/pa_java.yaml --cuda <gpu ids>
 ```
 
 The training log will be stored in `./out/pa_former/`.
+
+### Developing
+
+Go [Getting Started](/doc/getting_started.md)
